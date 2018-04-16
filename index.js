@@ -1,9 +1,5 @@
-import HocForm, { FormContext } from './src/HocForm';
+import HocForm from './src/HocForm';
 import Field from './src/Field';
 
-export {
-  Field,
-  FormContext,
-};
-
+export { Field };
 export default HocForm;

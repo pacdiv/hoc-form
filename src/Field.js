@@ -15,7 +15,7 @@ export class Field extends Component {
             component={component}
             input={{
               name,
-              onChange: e => onChange(name, e.target.value),
+              onChange: value => onChange(name, value),
               value: state.values[name] || undefined,
             }}
             meta={{

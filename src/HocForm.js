@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 
 export const FormContext = React.createContext({
-  onChange: () => { },
-  registerField: () => { },
+  onChange: () => {},
+  registerField: () => {},
   state: {},
 });
 
-function HOC(hocProps, WrappedComponent) {
+const HOC = hocProps => WrappedComponent => {
   return class Form extends Component {
     constructor(props) {
       super(props);
+      const initialValues = hocProps.initialValues || props.initialValues;
       this.state = {
         errors: {},
         isValid: false,
         values: {
-          ...(props.initialValues
-            ? { ...props.initialValues }
-            : {}
-          )
+          ...(initialValues ? { ...initialValues } : {})
         },
       };
       this.registeredFields = {};
@@ -43,7 +41,7 @@ function HOC(hocProps, WrappedComponent) {
 
     asyncValidate(values) {
       return new Promise((resolve, reject) => {
-        const asyncValidate = hocProps.asyncValidate || this.props.asyncValidate;
+        const { asyncValidate } = hocProps;
 
         if (!asyncValidate) return resolve({});
 
@@ -128,6 +126,7 @@ function HOC(hocProps, WrappedComponent) {
           <WrappedComponent
             {...this.props}
             isFormValid={this.state.isValid}
+            name={hocProps.name || this.props.name}
             onSubmit={this.onSubmit}
           />
         </FormContext.Provider>

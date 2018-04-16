@@ -1,7 +1,8 @@
 const path = require('path');
 
 module.exports = {
-  entry: './index.js',
+  mode: 'production',
+  entry: ['./index.js'],
   module: {
     rules: [
       {
@@ -15,7 +16,7 @@ module.exports = {
     extensions: ['*', '.js']
   },
   output: {
-    filename: 'bundle.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'commonjs2'
   }
