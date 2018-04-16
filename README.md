@@ -6,7 +6,7 @@ hocForm is a [React](https://github.com/facebook/react) high-order component ena
 hocForm works with react@^16.3.1 and react-dom@^16.3.1.
 
 ## Documentation
-You can find the hocForm documentation [on the website](https://pacdiv.github.io/hoc-form/).
+You can find the hocForm documentation [on the website](https://pacdiv.gitbook.io/hoc-form/).
 
 ## Installation
   
