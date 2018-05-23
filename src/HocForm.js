@@ -126,7 +126,6 @@ const HOC = hocProps => WrappedComponent => {
           <WrappedComponent
             {...this.props}
             isFormValid={this.state.isValid}
-            name={hocProps.name || this.props.name}
             onSubmit={this.onSubmit}
           />
         </FormContext.Provider>
