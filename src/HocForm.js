@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
-export const FormContext = React.createContext({
-  onChange: () => {},
-  registerField: () => {},
-  state: {},
-});
+export const FormContext = React.createContext({});
 
 const HOC = hocProps => WrappedComponent => {
   return class Form extends Component {
@@ -18,25 +14,13 @@ const HOC = hocProps => WrappedComponent => {
           ...(initialValues ? { ...initialValues } : {})
         },
       };
-      this.registeredFields = {};
 
       this.asyncValidate = this.asyncValidate.bind(this);
       this.onChange = this.onChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
-      this.registerField = this.registerField.bind(this);
       this.runSyncValidation = this.runSyncValidation.bind(this);
       this.setInvalid = this.setInvalid.bind(this);
       this.validate = this.validate.bind(this);
-    }
-
-    componentDidMount() {
-      this.setState({
-        ...this.state,
-        values: {
-          ...this.state.values,
-          ...this.registeredFields,
-        },
-      });
     }
 
     asyncValidate(values) {
@@ -67,25 +51,13 @@ const HOC = hocProps => WrappedComponent => {
 
       try {
         const errors = await this.asyncValidate(this.state.values);
-        if (Object.keys(errors).length) {
-          this.setInvalid({ ...errors });
-          return;
-        }
 
         this.setState({ isValid: true }, () => {
           this.props.onSubmit(this.state.values);
         });
       } catch (err) {
-        console.warn('async:err:', err);
         this.setInvalid({ ...err });
       }
-    }
-
-    registerField(key) {
-      this.registeredFields = {
-        ...this.registeredFields,
-        [key]: this.state.values[key] || null,
-      };
     }
 
     runSyncValidation(values = this.state.values) {
@@ -120,7 +92,6 @@ const HOC = hocProps => WrappedComponent => {
         <FormContext.Provider
           value={{
             onChange: this.onChange,
-            registerField: this.registerField,
             state: { ...this.state },
           }}
         >
