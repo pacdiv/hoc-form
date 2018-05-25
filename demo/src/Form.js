@@ -25,7 +25,7 @@ const style = {
 };
 
 // Our tiny component
-function Form({
+export function Form({
   onSubmit,
 }) {
   return (

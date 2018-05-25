@@ -61,7 +61,7 @@ const HOC = hocProps => WrappedComponent => {
     }
 
     async onSubmit(e) {
-      e.preventDefault();
+      e && e.preventDefault();
 
       if (Object.keys(this.runSyncValidation()).length) return;
 
@@ -72,10 +72,11 @@ const HOC = hocProps => WrappedComponent => {
           return;
         }
 
-        this.setState({ idValid: true }, () => {
+        this.setState({ isValid: true }, () => {
           this.props.onSubmit(this.state.values);
         });
       } catch (err) {
+        console.warn('async:err:', err);
         this.setInvalid({ ...err });
       }
     }
