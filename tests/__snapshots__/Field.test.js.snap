@@ -1,0 +1,355 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HocForm()() shallows HocForm with sync and async validations 1`] = `
+initialize {
+  "0": Object {
+    "attribs": Object {
+      "novalidate": "",
+    },
+    "children": Array [
+      Object {
+        "attribs": Object {
+          "style": "display:flex;flex-direction:column;position:relative",
+        },
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "style": "font-weight:300;margin-bottom:.5em",
+            },
+            "children": Array [
+              Object {
+                "data": "Login",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "label",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "name": "login",
+                "placeholder": "elonmusk",
+                "style": "border:1px solid lightgrey;border-color:lightgrey;border-radius:.3em;font-size:1em;font-weight:300;height:2em;margin-bottom:2em;padding:.5em 1em",
+                "type": "string",
+                "value": "starman",
+              },
+              "children": Array [],
+              "name": "input",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "name": undefined,
+                "placeholder": undefined,
+                "style": undefined,
+                "type": undefined,
+                "value": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "name": undefined,
+                "placeholder": undefined,
+                "style": undefined,
+                "type": undefined,
+                "value": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+          Object {
+            "attribs": Object {
+              "name": "login",
+              "placeholder": "elonmusk",
+              "style": "border:1px solid lightgrey;border-color:lightgrey;border-radius:.3em;font-size:1em;font-weight:300;height:2em;margin-bottom:2em;padding:.5em 1em",
+              "type": "string",
+              "value": "starman",
+            },
+            "children": Array [],
+            "name": "input",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": Object {
+              "attribs": Object {
+                "style": "font-weight:300;margin-bottom:.5em",
+              },
+              "children": Array [
+                Object {
+                  "data": "Login",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "style": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "style": undefined,
+              },
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "name": undefined,
+              "placeholder": undefined,
+              "style": undefined,
+              "type": undefined,
+              "value": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "name": undefined,
+              "placeholder": undefined,
+              "style": undefined,
+              "type": undefined,
+              "value": undefined,
+            },
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": Object {
+          "attribs": Object {
+            "type": "submit",
+          },
+          "children": Array [
+            Object {
+              "data": "Sign in",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "button",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "type": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "type": undefined,
+          },
+        },
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "style": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "style": undefined,
+        },
+      },
+      Object {
+        "attribs": Object {
+          "type": "submit",
+        },
+        "children": Array [
+          Object {
+            "data": "Sign in",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+        ],
+        "name": "button",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": Object {
+          "attribs": Object {
+            "style": "display:flex;flex-direction:column;position:relative",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {
+                "style": "font-weight:300;margin-bottom:.5em",
+              },
+              "children": Array [
+                Object {
+                  "data": "Login",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Object {
+                "attribs": Object {
+                  "name": "login",
+                  "placeholder": "elonmusk",
+                  "style": "border:1px solid lightgrey;border-color:lightgrey;border-radius:.3em;font-size:1em;font-weight:300;height:2em;margin-bottom:2em;padding:.5em 1em",
+                  "type": "string",
+                  "value": "starman",
+                },
+                "children": Array [],
+                "name": "input",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "name": undefined,
+                  "placeholder": undefined,
+                  "style": undefined,
+                  "type": undefined,
+                  "value": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "name": undefined,
+                  "placeholder": undefined,
+                  "style": undefined,
+                  "type": undefined,
+                  "value": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "style": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "style": undefined,
+              },
+            },
+            Object {
+              "attribs": Object {
+                "name": "login",
+                "placeholder": "elonmusk",
+                "style": "border:1px solid lightgrey;border-color:lightgrey;border-radius:.3em;font-size:1em;font-weight:300;height:2em;margin-bottom:2em;padding:.5em 1em",
+                "type": "string",
+                "value": "starman",
+              },
+              "children": Array [],
+              "name": "input",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": Object {
+                "attribs": Object {
+                  "style": "font-weight:300;margin-bottom:.5em",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Login",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "style": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "style": undefined,
+                },
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "name": undefined,
+                "placeholder": undefined,
+                "style": undefined,
+                "type": undefined,
+                "value": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "name": undefined,
+                "placeholder": undefined,
+                "style": undefined,
+                "type": undefined,
+                "value": undefined,
+              },
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "style": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "style": undefined,
+          },
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "type": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "type": undefined,
+        },
+      },
+    ],
+    "name": "form",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": null,
+    "parent": null,
+    "prev": null,
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        [Circular],
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "novalidate": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "novalidate": undefined,
+    },
+  },
+  "_root": [Circular],
+  "length": 1,
+  "options": Object {
+    "decodeEntities": true,
+    "normalizeWhitespace": false,
+    "withDomLvl1": true,
+    "xml": false,
+  },
+}
+`;

@@ -3,91 +3,55 @@ import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import hocForm, { Field } from '../index';
-import Input from '../demo/src/Input';
+import {
+  asyncValidate,
+  Form,
+  singleField,
+  validate,
+} from './helpers';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-function Form({ onSubmit }) {
-  return (
-    <form onSubmit={onSubmit} noValidate>
-      <Field
-        name="login"
-        component={Input}
-        props={{
-          label: 'Login',
-          placeholder: 'elonmusk',
-          type: 'string',
-        }}
-      />
-      <button type="submit">
-        Sign in
-      </button>
-    </form>
-  );
-}
-
 const LoginForm = hocForm({
-  validate(values, props) {
-    let errors = {};
-
-    if (!values.login) {
-      errors = {
-        ...errors,
-        login: 'Please enter a login',
-      };
-    }
-
-    return errors;
+  initialValues: {
+    login: 'hulk',
   },
-  asyncValidate(values, props) {
-    console.warn('asyncValidate:', values, props);
-    return values.login === 'starman'
-      ? Promise.resolve({})
-      : Promise.reject({ login: 'Unknown login. Please enter another login.' })
-  }
+  validate,
+  asyncValidate,
 })(Form);
 
 describe('HocForm()()', () => {
-  function getNewValues(login) {
-    return {
+  const event = {
+    preventDefault: value => value,
+  };
+  function submitWithNewLogin(wrapper, form, event, login) {
+    wrapper.setState({
       values: {
         login,
       },
-    };
+    }, () => form.simulate('submit', event));
   }
 
-  // it('render HocForm mounted', () => {
-  //   const wrapper = mount(
-  //     <LoginForm
-  //       onSubmit={values => values}
-  //     />
-  //   );
-
-  //   expect(wrapper).toMatchSnapshot();
-  // });
-
-  it('renders HocForm shallowed', () => {
-    const wrapper = shallow(
+  it('shallows HocForm with sync and async validations', () => {
+    const formWrapper = shallow(
       <LoginForm
         onSubmit={values => values}
-      />
+      />,
     );
 
-    // expect(wrapper.render()).toMatchSnapshot();
+    formWrapper.setState({
+      errors: {
+        login: 'Please enter a login',
+      },
+    }, () => formWrapper.instance().onChange('login', ''));
 
-    const form = wrapper.find(Form).first().dive();
-    const field = form.find(Field).first();
-    const action = form.find('button').first();
+    const form = formWrapper.find(Form).first().dive();
+    [
+      '',           // Testing invalid syncValidate
+      'ironman',    // Testing valid syncValidate then invalid asyncValidate
+      'starman',    // Testing both valid syncValidate and asyncValidate
+    ].forEach(key => submitWithNewLogin(formWrapper, form, event, key));
 
-    // Testing invalid syncValidate
-    form.simulate('submit');
-
-    // Testing valid syncValidate then invalid asyncValidate
-    wrapper.setState(getNewValues('ironman'));
-    form.simulate('submit');
-
-    // Testing both valid syncValidate and asyncValidate
-    wrapper.setState(getNewValues('starman'));
-    form.simulate('submit');
+    expect(formWrapper.render()).toMatchSnapshot();
   });
 });

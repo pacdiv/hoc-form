@@ -2,6 +2,7 @@
   "coveragePathIgnorePatterns": [
     "/node_modules/",
     "/demo/",
-    "/dist/"
+    "/dist/",
+    "tests/"
   ]
 }

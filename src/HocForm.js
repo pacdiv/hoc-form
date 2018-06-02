@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 
-export const FormContext = React.createContext({});
+export const FormContext = React.createContext({
+  onChange: null,
+  state: {
+    errors: {},
+    isValid: false,
+    values: {},
+  },
+});
 
 const HOC = hocProps => WrappedComponent => {
   return class Form extends Component {
