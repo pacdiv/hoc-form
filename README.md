@@ -4,8 +4,7 @@ React high-order component enabling to handle form validation.
 
 Get form validation without handling any state or other solution you might write! The time when we stop managing state or other solution to know whether our form is valid or not has come! 🚀
 
-![A smoothie made with a blender?](https://images.unsplash.com/photo-1502741224143-90386d7f8c82)*« Why should we prepare a smoothie with our hands when we can use a blender? »*
-*(Photograph by [Joanna Kosinska](https://unsplash.com/@joannakosinska))*
+*« Why should we prepare a smoothie the hand-made way when we can use a blender? »*
 
 ## Requirements
 HocForm needs at least react@16.3.1 and react-dom@16.3.1 to work.
