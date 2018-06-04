@@ -1,11 +1,11 @@
-
 # hoc-form • ![Travis](https://img.shields.io/travis/pacdiv/hoc-form.svg) ![Coveralls github](https://img.shields.io/coveralls/github/pacdiv/hoc-form.svg) ![npm](https://img.shields.io/npm/v/hoc-form.svg) ![license](https://img.shields.io/github/license/pacdiv/hoc-form.svg)
 
 React high-order component enabling to handle form validation. 
 
 Get form validation without handling any state or other solution you might write! The time when we stop managing state or other solution to know whether our form is valid or not has come! 🚀
 
-![Why should we prepare a smoothie with our hands when we can use a blender?](https://unsplash.com/photos/m741tj4Cz7M)
+![A smoothie made with a blender?](https://images.unsplash.com/photo-1502741224143-90386d7f8c82)*« Why should we prepare a smoothie with our hands when we can use a blender? »*
+*(Photograph by [Joanna Kosinska](https://unsplash.com/@joannakosinska))*
 
 ## Requirements
 HocForm needs at least react@16.3.1 and react-dom@16.3.1 to work.
@@ -21,7 +21,6 @@ npm install --save hoc-form
 ```
 
 HocForm needs three parts to run:
-
  - A form component to wrap in HocForm
  - Each field of this form component must be wrapped in a HocForm.Field
  - A validation function.
@@ -86,8 +85,6 @@ export default hocForm({
 
 ## Documentation
 You can find the full documentation [here](https://pacdiv.gitbook.io/hoc-form/).
-
-  
 
 ## License
 HocForm is [MIT licensed](https://github.com/pacdiv/hoc-form/blob/master/LICENSE).
