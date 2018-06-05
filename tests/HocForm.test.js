@@ -18,6 +18,11 @@ const LoginForm = hocForm({
   },
   validate,
   asyncValidate,
+  validateOnBlur: true,
+})(Form);
+
+const LoginFormWithoutValidation = hocForm({
+  validateOnBlur: true,
 })(Form);
 
 describe('HocForm()()', () => {
@@ -44,6 +49,7 @@ describe('HocForm()()', () => {
         login: 'Please enter a login',
       },
     }, () => formWrapper.instance().onChange('login', ''));
+    formWrapper.instance().onBlur('login');
 
     const form = formWrapper.find(Form).first().dive();
     [
@@ -54,4 +60,16 @@ describe('HocForm()()', () => {
 
     expect(formWrapper.render()).toMatchSnapshot();
   });
+
+  it('shallows HocForm without sync or async validation', () => {
+    const formWrapper = shallow(
+      <LoginFormWithoutValidation
+        onSubmit={values => values}
+      />,
+    );
+
+    const form = formWrapper.find(Form).first().dive();
+    formWrapper.instance().onBlur('login');
+    submitWithNewLogin(formWrapper, form, event, 'starman');
+  })
 });

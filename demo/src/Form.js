@@ -56,7 +56,6 @@ export function Form({
 
 // Here's how we use hocForm
 export default hocForm({
-  name: 'my-form',
   validate(values, props) {
     let errors = {};
 
@@ -75,5 +74,11 @@ export default hocForm({
     }
   
     return errors;
-  }
+  },
+  asyncValidate(values) {
+    return values.pwd === 'starman'
+      ? Promise.resolve({})
+      : Promise.reject({ pwd: 'Invalid password' });
+  },
+  validateOnBlur: true,
 })(Form);
