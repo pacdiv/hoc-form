@@ -2,4 +2,8 @@
 
 ### Features
 
-* `HocForm` accepts now a new option: `validateOnBlur`, which allows to run sync validation on blur events. Defaults to `false`.
+* `HocForm` now accepts a new option: `validateOnBlur`, which allows to run sync validation on blur events. Defaults to `false`.
+
+### Fixes
+
+* Resolved an issue on `multiple renderers concurrently rendering the same context provider`.
