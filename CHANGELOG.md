@@ -1,3 +1,9 @@
+## 1.2.0 (June 5, 2018)
+
+### Features
+
+* `HocForm` now provides its state to the wrapped form component through a property named `hocFormState`.
+
 ## 1.1.0 (June 5, 2018)
 
 ### Features
