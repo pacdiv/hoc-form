@@ -98,6 +98,8 @@ const HOC = hocProps => WrappedComponent => {
     }
 
     render() {
+      const { errors, isValid, values } = this.state;
+
       return (
         <FormContext.Provider
           value={{
@@ -108,7 +110,7 @@ const HOC = hocProps => WrappedComponent => {
         >
           <WrappedComponent
             {...this.props}
-            isFormValid={this.state.isValid}
+            hocFormState={{ errors, isValid, values }}
             onSubmit={this.onSubmit}
           />
         </FormContext.Provider>
