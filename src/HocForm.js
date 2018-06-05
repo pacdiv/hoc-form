@@ -23,11 +23,13 @@ const HOC = hocProps => WrappedComponent => {
       };
 
       this.asyncValidate = this.asyncValidate.bind(this);
+      this.onBlur = hocProps.validateOnBlur && this.onBlur.bind(this);
       this.onChange = this.onChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
       this.runSyncValidation = this.runSyncValidation.bind(this);
-      this.setInvalid = this.setInvalid.bind(this);
-      this.validate = this.validate.bind(this);
+      this.setIsValid = this.setIsValid.bind(this);
+
+      this.validate = hocProps.validate || this.props.validate;
     }
 
     asyncValidate(values) {
@@ -63,35 +65,36 @@ const HOC = hocProps => WrappedComponent => {
           this.props.onSubmit(this.state.values);
         });
       } catch (err) {
-        this.setInvalid({ ...err });
+        this.setIsValid({ ...err });
       }
+    }
+  
+    onBlur(key) {
+      if (!this.validate) return {};
+
+      const errors = {
+        ...this.state.errors,
+        [key]: this.validate(this.state.values, this.props)[key],
+      };
+      this.setIsValid(errors);
     }
 
     runSyncValidation(values = this.state.values) {
-      const errors = this.validate(values);
-
-      if (Object.keys(errors).length) {
-        this.setInvalid({ ...errors });
-      }
-
-      return errors;
-    }
-
-    setInvalid(errors) {
-      this.setState({ errors, isValid: false });
-    }
-
-    validate(values) {
       const validate = hocProps.validate || this.props.validate;
 
-      if (!validate) return {};
+      if (!this.validate) return {};
 
-      const errors = validate(values, this.props);
-      if (errors !== {}) {
-        this.setInvalid({ ...errors });
-      }
+      const errors = this.validate(values, this.props);
+      this.setIsValid(errors);
 
       return errors;
+    }
+
+    setIsValid(errors) {
+      this.setState({
+        errors,
+        isValid: !!Object.keys(errors).length,
+      });
     }
 
     render() {
@@ -100,6 +103,7 @@ const HOC = hocProps => WrappedComponent => {
           value={{
             onChange: this.onChange,
             state: { ...this.state },
+            ...(this.onBlur && { onBlur: this.onBlur } || {}),
           }}
         >
           <WrappedComponent

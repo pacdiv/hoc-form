@@ -1,6 +1,6 @@
 {
   "name": "hoc-form",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "keywords": [],
   "author": "Loïc JEAN-LAMBERT (@pacdiv)",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.4",
