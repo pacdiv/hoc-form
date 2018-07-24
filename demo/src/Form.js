@@ -69,7 +69,7 @@ export function Form({
         name="login"
         component={Input}
         props={{
-          label: 'Login',
+          label: 'Login *',
           onBlur: value => validateLogin(value),
           placeholder: 'elonmusk',
           type: 'string',
@@ -79,7 +79,7 @@ export function Form({
         name="pwd"
         component={Input}
         props={{
-          label: 'Password',
+          label: 'Password *',
           onBlur: value => validatePassword(value),
           type: 'password',
         }}
@@ -88,13 +88,22 @@ export function Form({
         name="confirmPwd"
         component={Input}
         props={{
-          label: 'Password confirmation',
+          label: 'Password confirmation *',
           onBlur: (value, { pwd }) => validatePasswordConfirmation(value, pwd),
           type: 'password',
         }}
       />
+      <Field
+        name="referrer"
+        component={Input}
+        props={{
+          label: 'How did you find us? *',
+          placeholder: 'Google Search, Facebook or else',
+          type: 'string',
+        }}
+      />
       <button style={style.submitButton} type="submit">
-        Sign in
+        Sign up
       </button>
     </form>
   );
@@ -112,8 +121,12 @@ export default hocForm({
       errorCatcher('login', validateLogin),
       errorCatcher('pwd', validatePassword),
       errorCatcher('confirmPwd', validatePasswordConfirmation, values.pwd),
-    ]).then((resolved) => {
-      const results = resolved.reduce((acc, item) => ({ ...acc, ...item }), {});
+    ]).then((errors) => {
+      if (!values.referrer) {
+        errors = errors.concat({ referrer: 'Please give us something! 😇🙏' });
+      }
+
+      const results = errors.reduce((acc, item) => ({ ...acc, ...item }), {});
       return Object.keys(results).length ? Promise.reject(results) : Promise.resolve();
     });
   }
