@@ -1,9 +1,7 @@
 const path = require('path');
-const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  mode: 'none',
+  mode: 'production',
   entry: ['./index.js'],
   module: {
     rules: [
@@ -14,13 +12,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new UglifyJsPlugin({
-      test: /\.js/
-    }),
-    new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-  ],
   resolve: {
     extensions: ['*', '.js']
   },
