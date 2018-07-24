@@ -3,24 +3,7 @@ import React from 'react';
 import { Field } from '../index';
 import Input from '../demo/src/Input';
 
-export function asyncValidate(values, props) {
-  return values.login === 'starman'
-    ? Promise.resolve({})
-    : Promise.reject({ login: 'You’re not authorized. Bye!' })
-}
-
-export function Form({ onSubmit }) {
-  return (
-    <form onSubmit={onSubmit} noValidate>
-      {singleField()}
-      <button type="submit">
-        Sign in
-      </button>
-    </form>
-  );
-}
-
-export function singleField() {
+function singleField() {
   return (
     <Field
       name="login"
@@ -34,6 +17,17 @@ export function singleField() {
   );
 }
 
+export function Form({ onSubmit }) {
+  return (
+    <form onSubmit={onSubmit} noValidate>
+      {singleField()}
+      <button type="submit">
+        Sign in
+      </button>
+    </form>
+  );
+}
+
 export function validate(values, props) {
   let errors = {};
 
@@ -44,5 +38,7 @@ export function validate(values, props) {
     };
   }
 
-  return errors;
+  return Object.keys(errors).length
+    ? Promise.reject(errors)
+    : Promise.resolve();
 }

@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 
-export const FormContext = React.createContext({
-  onChange: null,
-  state: {
-    errors: {},
-    isValid: false,
-    values: {},
-  },
-});
+export const FormContext = React.createContext({});
 
 const HOC = hocProps => WrappedComponent => {
   return class Form extends Component {
+    static removeObjectEntry = function(name, values) {
+      return Object
+        .entries(values)
+        .reduce((acc, [key, value]) => ({
+          ...acc,
+          ...(key !== name ? { [key]: value } : {}),
+        }), {});
+    }
+
     constructor(props) {
       super(props);
       const initialValues = hocProps.initialValues || props.initialValues;
@@ -22,95 +24,67 @@ const HOC = hocProps => WrappedComponent => {
         },
       };
 
-      this.asyncValidate = this.asyncValidate.bind(this);
-      this.onBlur = hocProps.validateOnBlur && this.onBlur.bind(this);
-      this.onChange = this.onChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
-      this.runSyncValidation = this.runSyncValidation.bind(this);
-      this.setIsValid = this.setIsValid.bind(this);
+      this.setError = this.setError.bind(this);
+      this.setValue = this.setValue.bind(this);
+      this.unsetError = this.unsetError.bind(this);
 
       this.validate = hocProps.validate || this.props.validate;
     }
 
-    asyncValidate(values) {
-      return new Promise((resolve, reject) => {
-        const { asyncValidate } = hocProps;
-
-        if (!asyncValidate) return resolve({});
-
-        return asyncValidate(values, this.props)
-          .then(errors => resolve(errors))
-          .catch(err => reject(err));
-      });
-    }
-
-    onChange(key, value) {
-      this.setState({
-        ...this.state,
-        values: { ...this.state.values, [key]: value },
-      }, () => {
-        if (this.state.errors[key]) this.runSyncValidation();
-      });
-    }
-
-    async onSubmit(e) {
+    onSubmit(e) {
       e && e.preventDefault();
+      const { errors, values } = this.state;
 
-      if (Object.keys(this.runSyncValidation()).length) return;
-
-      try {
-        const errors = await this.asyncValidate(this.state.values);
-
-        this.setState({ isValid: true }, () => {
-          this.props.onSubmit(this.state.values);
-        });
-      } catch (err) {
-        this.setIsValid({ ...err });
+      if (!this.validate) {
+        this.props.onSubmit(values);
+        return;
       }
-    }
-  
-    onBlur(key) {
-      if (!this.validate) return {};
 
-      const errors = {
-        ...this.state.errors,
-        [key]: this.validate(this.state.values, this.props)[key],
-      };
-      this.setIsValid(errors);
+      this.validate(values)
+        .then(() => {
+          this.setState({ errors: {}, isValid: true });
+          this.props.onSubmit(values);
+        })
+        .catch(errors => this.setState({ errors, isValid: false }));
     }
 
-    runSyncValidation(values = this.state.values) {
-      const validate = hocProps.validate || this.props.validate;
-
-      if (!this.validate) return {};
-
-      const errors = this.validate(values, this.props);
-      this.setIsValid(errors);
-
-      return errors;
-    }
-
-    setIsValid(errors) {
+    setError(key, error) {
       this.setState({
-        errors,
-        isValid: !!Object.keys(errors).length,
+        errors: {
+          ...this.state.errors,
+          [key]: error,
+        },
       });
+    }
+
+    setValue(key, value) {
+      this.setState({
+        values: {
+          ...this.state.values,
+          [key]: value,
+        },
+      });
+    }
+
+    unsetError(key) {
+      const errors = Form.removeObjectEntry(key, this.state.errors);
+      this.setState({ errors });
     }
 
     render() {
-      const { errors, isValid, values } = this.state;
-
       return (
         <FormContext.Provider
           value={{
-            onChange: this.onChange,
+            setError: this.setError,
+            setValue: this.setValue,
             state: { ...this.state },
-            ...(this.onBlur && { onBlur: this.onBlur } || {}),
+            unsetError: this.unsetError,
           }}
         >
           <WrappedComponent
             {...this.props}
-            hocFormState={{ errors, isValid, values }}
+            hocFormState={{ ...this.state }}
             onSubmit={this.onSubmit}
           />
         </FormContext.Provider>

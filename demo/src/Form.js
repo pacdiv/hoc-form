@@ -24,7 +24,42 @@ const style = {
   },
 };
 
-// Our tiny component
+const unavailableUsernames = [
+  'elonmusk',
+  'ironman',
+  'lukeskywalker',
+];
+
+function validateLogin(value = '') {
+  if (value.trim() === '') {
+    return Promise.reject('Please enter an username');
+  }
+
+  return unavailableUsernames.includes(value)
+    ? Promise.reject('This username is unavaible')
+    : Promise.resolve()
+}
+
+function validatePassword(value = '') {
+  if (value.trim() === '') {
+    return Promise.reject('Please enter a password');
+  } else if (value.trim().length < 6) {
+    return Promise.reject('Password must contain 6 characters or more');
+  } else {
+    return Promise.resolve();
+  }
+}
+
+function validatePasswordConfirmation(value = '', password = '') {
+  if (value.trim() === '') {
+    return Promise.reject('Please enter a password');
+  } else if (value !== password) {
+    return Promise.reject('Please enter the same password as below');
+  } else {
+    return Promise.resolve();
+  }
+}
+
 export function Form({
   onSubmit,
 }) {
@@ -35,6 +70,7 @@ export function Form({
         component={Input}
         props={{
           label: 'Login',
+          onBlur: value => validateLogin(value),
           placeholder: 'elonmusk',
           type: 'string',
         }}
@@ -44,6 +80,16 @@ export function Form({
         component={Input}
         props={{
           label: 'Password',
+          onBlur: value => validatePassword(value),
+          type: 'password',
+        }}
+      />
+      <Field
+        name="confirmPwd"
+        component={Input}
+        props={{
+          label: 'Password confirmation',
+          onBlur: (value, { pwd }) => validatePasswordConfirmation(value, pwd),
           type: 'password',
         }}
       />
@@ -54,31 +100,21 @@ export function Form({
   );
 }
 
-// Here's how we use hocForm
 export default hocForm({
   validate(values, props) {
     let errors = {};
+    const errorCatcher = (key, callback, ...args) => (
+      callback(values[key], args)
+        .catch(error => ({ [key]: error }))
+    );
 
-    if (!values.login) {
-      errors = {
-        ...errors,
-        login: 'Please enter a login',
-      };
-    }
-
-    if (!values.pwd) {
-      errors = {
-        ...errors,
-        pwd: 'Please enter a password',
-      };
-    }
-  
-    return errors;
-  },
-  asyncValidate(values) {
-    return values.pwd === 'starman'
-      ? Promise.resolve({})
-      : Promise.reject({ pwd: 'Invalid password' });
-  },
-  validateOnBlur: true,
+    return Promise.all([
+      errorCatcher('login', validateLogin),
+      errorCatcher('pwd', validatePassword),
+      errorCatcher('confirmPwd', validatePasswordConfirmation, values.pwd),
+    ]).then((resolved) => {
+      const results = resolved.reduce((acc, item) => ({ ...acc, ...item }), {});
+      return Object.keys(results).length ? Promise.reject(results) : Promise.resolve();
+    });
+  }
 })(Form);

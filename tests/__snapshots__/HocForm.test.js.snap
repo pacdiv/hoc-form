@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HocForm()() shallows HocForm with sync and async validations 1`] = `
+exports[`HocForm()() shallows HocForm with validation 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {

@@ -32,7 +32,6 @@ const style = {
 };
 
 function Input({
-  error = null,
   input = {},
   label = '',
   meta = {},
@@ -48,6 +47,7 @@ function Input({
         placeholder={placeholder}
         type={type}
         {...input}
+        onBlur={e => input.onBlur && input.onBlur(e.target.value)}
         onChange={e => input.onChange(e.target.value)}
         style={{
           ...style.field,
