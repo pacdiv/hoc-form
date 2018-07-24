@@ -67,7 +67,7 @@ function validateLogin(value = '') {
   }
 
   return unavailableUsernames.includes(value)
-    ? Promise.reject('This username is unavaible')
+    ? Promise.reject('This username is unavailable')
     : Promise.resolve()
 }
 
