@@ -1,3 +1,4 @@
+
 # hoc-form • ![Travis](https://img.shields.io/travis/pacdiv/hoc-form.svg) ![Coveralls github](https://img.shields.io/coveralls/github/pacdiv/hoc-form.svg) ![npm](https://img.shields.io/npm/v/hoc-form.svg) ![license](https://img.shields.io/github/license/pacdiv/hoc-form.svg)
 
 React higher-order component enabling to handle form validation. 
@@ -265,7 +266,7 @@ function TextInput({
 }
 ```
 
-### `input.onBlur(value: *)`
+### `input.onBlur(value: *, values: Object) => Promise`
 Allows to run a validation on blur, the `onBlur` callback setted as property of the `Field`.
 
 Example:
