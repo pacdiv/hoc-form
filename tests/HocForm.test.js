@@ -4,9 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import hocForm, { Field } from '../index';
 import {
-  asyncValidate,
   Form,
-  singleField,
   validate,
 } from './helpers';
 
@@ -17,59 +15,61 @@ const LoginForm = hocForm({
     login: 'hulk',
   },
   validate,
-  asyncValidate,
-  validateOnBlur: true,
 })(Form);
 
-const LoginFormWithoutValidation = hocForm({
-  validateOnBlur: true,
-})(Form);
+const LoginFormWithoutValidation = hocForm({})(Form);
 
 describe('HocForm()()', () => {
   const event = {
     preventDefault: value => value,
   };
-  function submitWithNewLogin(wrapper, form, event, login) {
+  let spy;
+  const onSubmit = jest.fn(values => values);
+  function submitWithNewLogin(wrapper, form, event, login, times) {
     wrapper.setState({
       values: {
         login,
       },
-    }, () => form.simulate('submit', event));
+    }, () => {
+      Promise.resolve(form.simulate('submit', event))
+        .then(() => expect(spy).toHaveBeenCalledTimes(times))
+        .catch(() => ({}));
+    });
   }
 
-  it('shallows HocForm with sync and async validations', () => {
+  afterEach(() => {
+    spy.mockRestore();
+  });
+
+  it('shallows HocForm with validation', () => {
     const formWrapper = shallow(
       <LoginForm
-        onSubmit={values => values}
+        onSubmit={onSubmit}
       />,
     );
+    spy = jest.spyOn(formWrapper.instance().props, 'onSubmit');
 
-    formWrapper.setState({
-      errors: {
-        login: 'Please enter a login',
-      },
-    }, () => formWrapper.instance().onChange('login', ''));
-    formWrapper.instance().onBlur('login');
+    formWrapper.instance().setError('login', 'Please enter a login');
+    formWrapper.instance().unsetError('login');
+    formWrapper.instance().setValue('login', '');
 
     const form = formWrapper.find(Form).first().dive();
-    [
-      '',           // Testing invalid syncValidate
-      'ironman',    // Testing valid syncValidate then invalid asyncValidate
-      'starman',    // Testing both valid syncValidate and asyncValidate
-    ].forEach(key => submitWithNewLogin(formWrapper, form, event, key));
-
+    submitWithNewLogin(formWrapper, form, event, '', 1);
+    submitWithNewLogin(formWrapper, form, event, 'starman', 2);
     expect(formWrapper.render()).toMatchSnapshot();
   });
 
   it('shallows HocForm without sync or async validation', () => {
+    const onSubmit = jest.fn(values => values)
     const formWrapper = shallow(
       <LoginFormWithoutValidation
-        onSubmit={values => values}
+        onSubmit={onSubmit}
       />,
     );
+    const spy = jest.spyOn(formWrapper.instance().props, 'onSubmit');
 
     const form = formWrapper.find(Form).first().dive();
-    formWrapper.instance().onBlur('login');
-    submitWithNewLogin(formWrapper, form, event, 'starman');
-  })
+    formWrapper.instance().setValue('login', 'hulk');
+    submitWithNewLogin(formWrapper, form, event, 'starman', 1);
+  });
 });

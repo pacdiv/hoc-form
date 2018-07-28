@@ -6,20 +6,22 @@ import ContextedField from './ContextedField';
 function Field({ name, props, component }) {
   return (
     <FormContext.Consumer>
-      {({ state, onBlur = null, onChange }) => (
+      {({ state, setError, setValue, unsetError }) => (
         <ContextedField
           {...props}
           component={component}
           input={{
             name,
-            onChange: value => onChange(name, value),
+            onChange: value => setValue(name, value),
             value: state.values[name] || undefined,
-            ...(onBlur ? { onBlur: () => onBlur(name) } : {}),
+            ...(props.onBlur
+              ? { onBlur: value => props.onBlur(value, state.values)
+                    .then(() => unsetError(name))
+                    .catch(error => setError(name, error))
+              }
+              : {}),
           }}
-          meta={{
-            error: state.errors[name] || undefined,
-            touched: true,
-          }}
+          meta={{ error: state.errors[name] || undefined }}
         />
       )}
     </FormContext.Consumer>
