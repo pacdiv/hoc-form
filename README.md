@@ -1,36 +1,26 @@
 
 # hoc-form • ![Travis](https://img.shields.io/travis/pacdiv/hoc-form.svg) ![Coveralls github](https://img.shields.io/coveralls/github/pacdiv/hoc-form.svg) ![npm](https://img.shields.io/npm/v/hoc-form.svg) ![license](https://img.shields.io/github/license/pacdiv/hoc-form.svg)
 
-React higher-order component enabling to handle form validation. 
-
-Get form validation without handling any state or other solution you might write! The time when we stop managing state or other solution to know whether our form is valid or not has come! 🚀
-
-*« Why should we prepare a hand-made smoothie when we can use a blender? »*
+Tired of writing custom form validation on every project you might work on? Let’s try `hocForm`, form validation on React has rarely been so simple! 🤗
 
 # Requirements
 hocForm needs at least react@16.3.1 and react-dom@16.3.1 to work.
 
 # Installation
-Install hocForm using `yarn`:
-```
-yarn add hoc-form
-```
-Or using `npm`:
+Using `npm`:
+
 ```
 npm install --save hoc-form
 ```
 
-# Usage
-HocForm needs three parts to run:
- - A form component to wrap in hocForm
- - Each field of this form component must be wrapped in a hocForm.Field
- - A validation function.
+`yarn add hoc-form` works fine too!
 
+# Usage
 ```javascript
 import React from 'react';
 import hocForm, { Field } from 'hoc-form';
 
-// First, we need a text input component to render our text field
+// First, we need a input component to render our text field
 function Input({
   input = {},
   label = '',

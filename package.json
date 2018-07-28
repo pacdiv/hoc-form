@@ -1,7 +1,7 @@
 {
   "name": "hocform",
   "version": "2.0.0-beta",
-  "description": "",
+  "description": "Concise form validation for React!",
   "main": "dist/index.js",
   "scripts": {
     "build": "webpack",
