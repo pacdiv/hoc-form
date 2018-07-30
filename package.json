@@ -1,6 +1,6 @@
 {
-  "name": "hocform",
-  "version": "2.0.0-beta",
+  "name": "hoc-form",
+  "version": "2.0.1-beta",
   "description": "Concise form validation for React!",
   "main": "dist/index.js",
   "scripts": {

@@ -1,4 +1,10 @@
-## 2.0.0 (July 27, 2018)
+## 2.0.1-beta (July 30, 2018)
+
+### Fixes
+
+* Fixed some links on the README.
+
+## 2.0.0-beta (July 27, 2018)
 
 ### Features
 
