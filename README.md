@@ -116,7 +116,7 @@ export default hocForm({
   }
 })(Form);
 ```
-Please check out the [complete demo](https://github.com/pacdiv/hoc-form/tree/2.0.0-beta/demo)! 🚀
+Please check out the [complete demo](https://github.com/pacdiv/hoc-form/tree/master/demo)! 🚀
 
 # API
 
@@ -194,7 +194,7 @@ function Form({ onSubmit }) {
 }
 ```
 
-Please check out a [complete example here](https://github.com/pacdiv/hoc-form/tree/2.0.0-beta/demo).
+Please check out a [complete example here](https://github.com/pacdiv/hoc-form/tree/master/demo).
 
 ## `Field({ options }) => React.Component`
 Renders a form field, contexted with `hocForm`.
@@ -234,7 +234,7 @@ Example:
 />
 ```
 
-Please check out a [complete example here](https://github.com/pacdiv/hoc-form/tree/2.0.0-beta/demo).
+Please check out a [complete example here](https://github.com/pacdiv/hoc-form/tree/master/demo).
 
 ## Which extra-props my components receive from `Field`?
 Components used in `Field` must handle the two following properties: `input` and `meta`. Please check out the description below.
@@ -321,7 +321,7 @@ function TextInput({
 }
 ```
 
-Please check out a [complete example here](https://github.com/pacdiv/hoc-form/tree/2.0.0-beta/demo).
+Please check out a [complete example here](https://github.com/pacdiv/hoc-form/tree/master/demo).
 
 # License
 hocForm is [MIT licensed](https://github.com/pacdiv/hoc-form/blob/master/LICENSE).
